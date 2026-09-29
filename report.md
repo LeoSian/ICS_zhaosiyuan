@@ -1,8 +1,8 @@
 # Lab0: GitLab 实验报告
 
-
+| 项目 | 内容 |
+|---|---|
 | GitHub 仓库 | https://github.com/LeoSian/ICS_zhaosiyuan |
-
 
 ---
 
@@ -33,7 +33,7 @@ Git 把一次修改的落地拆成 `git add` 和 `git commit`，中间隔了一�
 
 **1. 让每个 commit 保持语义单一。** 实际写代码时，一次往往会同时改好几处代码。如果 `add` 和 `commit` 合并成一步，这些改动只能一起提交，生成一个混杂的 commit。日后若发现一个部分有问题想回退，就会连带把其他改动也退掉。
 
-有了暂存区，就可以先 `git add` 属于 bug 修复的文件、提交一次，再 `git add` 其余文件、提交第二次。提交历史的粒度由开发者决定，而不是被"保存时机"绑死。这也是 `git revert`、`git cherry-pick`、`git bisect` 这些命令能够有效工作的前提——它们都假设每个 commit 是一个自洽的最小单元。
+有了暂存区，就可以先 `git add` 属于 bug 修复的文件、提交一次，再 `git add` 其余文件、提交第二次。提交历史的粒度由开发者决定，而不是被"保存时机"绑死。粒度合适的提交也能让 `git revert`、`git cherry-pick`、`git bisect` 这些命令用起来更精确：回退、挑选或定位某个提交时，不会牵连无关的改动。
 
 **2. 提供提交前的检查窗口。** 三个区域的划分让 diff 有了两个层次：
 
@@ -293,7 +293,11 @@ git add main.c
 git commit -m "fix: resolve merge conflict between main and feature"
 ```
 
-解决后重新编译运行，输出为 `Hello from main branch.`，程序正常，且仍满足自动评分的要求。
+解决后重新编译运行，输出为 `Hello from main branch.`，程序正常，且仍满足自动评分的要求：
+
+![解决冲突后的 main.c、编译运行结果与提交记录](images/conflict-resolved.png)
+
+截图中 `main.c` 已没有冲突标记，程序能正常编译运行，提交记录中可以看到合并提交 `a2721d2`。
 
 合并后的提交树：
 
